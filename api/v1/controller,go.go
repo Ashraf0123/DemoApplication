@@ -42,7 +42,6 @@ func (CacheControllerInstance) Create(c echo.Context) error {
 	_, e := Db.Exec(insertstmnt, value.Id, value.Name)
 	fmt.Println(e)
 	c.JSON(http.StatusOK, "value set")
-	helper.Init = true
 
 	return nil
 }
