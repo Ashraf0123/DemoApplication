@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	d1 "tempApi/Database"
 	"tempApi/dto"
 	"tempApi/helper"
 
@@ -39,7 +40,7 @@ func (CacheControllerInstance) Create(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
 	insertstmnt := `insert into Student(id,name) values($1,$2)`
-	_, e := Db.Exec(insertstmnt, value.Id, value.Name)
+	_, e := d1.GetPostgresMaster().Exec(insertstmnt, value.Id, value.Name)
 	fmt.Println(e)
 	c.JSON(http.StatusOK, "value set")
 
@@ -58,7 +59,7 @@ func (CacheControllerInstance) Update(c echo.Context) error {
 	}
 
 	update := `update Student set "name"=$1 where "id"=$2`
-	_, e := Db.Exec(update, value.Name, value.Id)
+	_, e := d1.GetPostgresMaster().Exec(update, value.Name, value.Id)
 	fmt.Println(e)
 	c.JSON(http.StatusOK, "Updated")
 
@@ -76,7 +77,7 @@ func (CacheControllerInstance) Delete(c echo.Context) error {
 		c.JSON(http.StatusBadRequest, err.Error())
 	}
 	delete := `delete from Student where "id"=$1`
-	_, e := Db.Exec(delete, value.Id)
+	_, e := d1.GetPostgresMaster().Exec(delete, value.Id)
 	fmt.Println(e)
 	c.JSON(http.StatusOK, "Deleted")
 
@@ -89,7 +90,7 @@ func (CacheControllerInstance) Get(c echo.Context) error {
 		return err
 	}
 	statement := `select * from Student where "id"=$1`
-	rows, err := Db.Query(statement, value.Id)
+	rows, err := d1.GetPostgresMaster().Query(statement, value.Id)
 	for rows.Next() {
 		var id string
 		var name string
