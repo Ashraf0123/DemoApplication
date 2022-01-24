@@ -12,8 +12,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// ServerPort and RedisPort are embedded into actual code, as they are part of the codebase
-//If you run Redis in a different port, please change the default value
+// ServerPort and Postgres are embedded into actual code, as they are part of the codebase
+//If you run Postgres in a different port, please change the default value
 //If you want to use a different port for the application, change the server port. Please also make changes to docker file (expose the same port)
 const ServerPort = "4040"
 const PostgresPort = "5432"

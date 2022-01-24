@@ -90,7 +90,7 @@ func (CacheControllerInstance) Get(c echo.Context) error {
 		return err
 	}
 	statement := `select * from Student where "id"=$1`
-	rows, err := d1.GetPostgresMaster().Query(statement, value.Id)
+	rows, err := d1.GetPostgresSlave().Query(statement, value.Id)
 	for rows.Next() {
 		var id string
 		var name string
