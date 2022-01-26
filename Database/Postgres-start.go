@@ -8,8 +8,6 @@ import (
 	"strconv"
 	"sync"
 	"tempApi/config"
-
-	"github.com/joho/godotenv"
 )
 
 var master *sql.DB
@@ -19,7 +17,7 @@ var mtx sync.Mutex
 var error2 error
 
 func InitPostgresMaster() error {
-	godotenv.Load(".env")
+	//godotenv.Load(".env")
 	psqlconn := fmt.Sprintf("host=%s port=%s user=%s "+"password=%s dbname=%s sslmode=disable", os.Getenv("host"), os.Getenv("port"), os.Getenv("user"), os.Getenv("password"), os.Getenv("dbname"))
 	master, error2 = sql.Open("postgres", psqlconn)
 	if error2 != nil {
